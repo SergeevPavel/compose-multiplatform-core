@@ -24,7 +24,7 @@ import androidx.compose.compiler.plugins.kotlin.lower.includeFileNameInException
 import androidx.compose.compiler.plugins.kotlin.lower.isSyntheticComposableFunction
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.backend.common.ir.isExpect
-import org.jetbrains.kotlin.backend.common.serialization.signature.IdSignatureSerializer
+import org.jetbrains.kotlin.backend.common.serialization.signature.IdSignatureFactory
 import org.jetbrains.kotlin.backend.jvm.ir.propertyIfAccessor
 import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.ir.declarations.IrClass
@@ -49,7 +49,7 @@ abstract class AbstractDecoysLowering(
     symbolRemapper: DeepCopySymbolRemapper,
     metrics: ModuleMetrics,
     stabilityInferencer: StabilityInferencer,
-    override val signatureBuilder: IdSignatureSerializer,
+    override val signatureBuilder: IdSignatureFactory,
 ) : AbstractComposeLowering(
     context = pluginContext,
     symbolRemapper = symbolRemapper,

@@ -23,6 +23,7 @@ import org.jetbrains.kotlin.fir.analysis.checkers.expression.FirCallableReferenc
 import org.jetbrains.kotlin.fir.expressions.FirCallableReferenceAccess
 import org.jetbrains.kotlin.fir.types.coneType
 import org.jetbrains.kotlin.fir.types.functionTypeKind
+import org.jetbrains.kotlin.fir.types.resolvedType
 
 /**
  * Report an error on composable function references.
@@ -41,7 +42,7 @@ object ComposableCallableReferenceChecker : FirCallableReferenceAccessChecker() 
         // The type of a function reference depends on the context where it is used.
         // We could allow non-reflective composable function references, but this would be fragile
         // and depend on details of the frontend resolution.
-        val kind = expression.typeRef.coneType.functionTypeKind(context.session)
+        val kind = expression.resolvedType.functionTypeKind(context.session)
         if (kind == ComposableFunction || kind == KComposableFunction) {
             reporter.reportOn(
                 expression.source,

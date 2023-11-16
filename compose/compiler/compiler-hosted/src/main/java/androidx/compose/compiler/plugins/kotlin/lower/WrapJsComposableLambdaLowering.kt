@@ -24,7 +24,7 @@ import androidx.compose.compiler.plugins.kotlin.lower.decoys.AbstractDecoysLower
 import androidx.compose.compiler.plugins.kotlin.lower.decoys.CreateDecoysTransformer
 import androidx.compose.compiler.plugins.kotlin.lower.decoys.isDecoy
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
-import org.jetbrains.kotlin.backend.common.serialization.signature.IdSignatureSerializer
+import org.jetbrains.kotlin.backend.common.serialization.signature.IdSignatureFactory
 import org.jetbrains.kotlin.descriptors.DescriptorVisibilities
 import org.jetbrains.kotlin.descriptors.Modality
 import org.jetbrains.kotlin.ir.IrStatement
@@ -85,7 +85,7 @@ class WrapJsComposableLambdaLowering(
     context: IrPluginContext,
     symbolRemapper: DeepCopySymbolRemapper,
     metrics: ModuleMetrics,
-    signatureBuilder: IdSignatureSerializer,
+    signatureBuilder: IdSignatureFactory,
     stabilityInferencer: StabilityInferencer,
     private val decoysEnabled: Boolean
 ) : AbstractDecoysLowering(
