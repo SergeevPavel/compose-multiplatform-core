@@ -1178,4 +1178,7 @@ class ComposerLambdaMemoization(
 // This must match the highest value of FunctionXX which is current Function22
 private const val MAX_RESTART_ARGUMENT_COUNT = 22
 
-internal object ComposeMemoizedLambdaOrigin : IrStatementOrigin
+internal object ComposeMemoizedLambdaOrigin : IrStatementOrigin {
+    override val debugName: String
+        get() = "ComposeMemoizedLambdaOrigin"
+}
