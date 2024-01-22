@@ -18,6 +18,7 @@ package androidx.compose.compiler.plugins.kotlin.lower.hiddenfromobjc
 
 import org.jetbrains.kotlin.descriptors.DeclarationDescriptor
 import org.jetbrains.kotlin.ir.ObsoleteDescriptorBasedAPI
+import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.declarations.IrProperty
 import org.jetbrains.kotlin.name.FqName
@@ -42,6 +43,7 @@ interface HideFromObjCDeclarationsSet {
 
     fun shouldHide(descriptor: DeclarationDescriptor): Boolean = contains(descriptor)
     fun addToHide(function: IrFunction)
+    fun addToHide(cls: IrClass)
     fun addToHide(property: IrProperty)
 
     operator fun contains(item: DeclarationDescriptor): Boolean
@@ -65,6 +67,10 @@ private class HideFromObjCDeclarationsSetImpl : HideFromObjCDeclarationsSet {
 
     override fun addToHide(property: IrProperty) {
         set.add(property.descriptor.fqNameSafe)
+    }
+
+    override fun addToHide(cls: IrClass) {
+        set.add(cls.descriptor.fqNameSafe)
     }
 
     override fun contains(item: DeclarationDescriptor): Boolean {
