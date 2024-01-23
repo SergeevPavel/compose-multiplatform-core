@@ -74,7 +74,10 @@ class AddHiddenFromObjCLowering(
 
         val cls = super.visitClass(declaration) as IrClass
 
-        if (currentShouldAnnotateClass) {
+        // We see an issue only with data classes containing something Composable.
+        // Adding an annotation to all classes makes the FirNativeHiddenFromObjCInheritanceChecker (kotlin) complain.
+        // data classes can't be open, so it should work.
+        if (currentShouldAnnotateClass && cls.isData) {
             cls.addHiddenFromObjCAnnotation()
             hideFromObjCDeclarationsSet.addToHide(cls)
         }
